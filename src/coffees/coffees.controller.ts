@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common';
 import { CoffeesService } from '@/coffees/coffees.service';
 import { CreateCoffeeDto } from '@/coffees/dto/create-coffee.dto';
@@ -17,8 +16,7 @@ export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
-    // const { limit, offset } = paginationQuery;
+  findAll() {
     return this.coffeesService.findAll();
   }
 
