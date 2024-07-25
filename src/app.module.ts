@@ -1,6 +1,6 @@
-import { CoffeesModule } from '@/coffees/coffees.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CoffeesModule } from '@/coffees/coffees.module';
 
 @Module({
   imports: [
