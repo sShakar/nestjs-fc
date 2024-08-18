@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CoffeesModule } from '@/coffees/coffees.module';
-import { CoffeeRatingModule } from '@/coffee-rating/coffee-rating.module';
+import { APP_PIPE } from '@nestjs/core';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from '@hapi/joi';
 import appConfig from '@/config/app.config';
+import { CoffeesModule } from '@/coffees/coffees.module';
+import { CoffeeRatingModule } from '@/coffee-rating/coffee-rating.module';
 
 @Module({
   imports: [
@@ -30,5 +31,6 @@ import appConfig from '@/config/app.config';
       }),
     }),
   ],
+  providers: [{ provide: APP_PIPE, useClass: ValidationPipe }],
 })
 export class AppModule {}
