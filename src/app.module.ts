@@ -6,9 +6,13 @@ import * as Joi from '@hapi/joi';
 import appConfig from '@/config/app.config';
 import { CoffeesModule } from '@/coffees/coffees.module';
 import { CoffeeRatingModule } from '@/coffee-rating/coffee-rating.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
+    CommonModule,
+    CoffeesModule,
+    CoffeeRatingModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         DATABASE_HOST: Joi.required(),
@@ -16,8 +20,6 @@ import { CoffeeRatingModule } from '@/coffee-rating/coffee-rating.module';
       }),
       load: [appConfig],
     }),
-    CoffeesModule,
-    CoffeeRatingModule,
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
