@@ -6,7 +6,9 @@ import * as Joi from '@hapi/joi';
 import appConfig from '@/config/app.config';
 import { CoffeesModule } from '@/coffees/coffees.module';
 import { CoffeeRatingModule } from '@/coffee-rating/coffee-rating.module';
-import { CommonModule } from './common/common.module';
+import { CommonModule } from '@/common/common.module';
+import { AppService } from '@/app.service';
+import { AppController } from '@/app.controller';
 
 @Module({
   imports: [
@@ -33,6 +35,7 @@ import { CommonModule } from './common/common.module';
       }),
     }),
   ],
-  providers: [{ provide: APP_PIPE, useClass: ValidationPipe }],
+  providers: [AppService, { provide: APP_PIPE, useClass: ValidationPipe }],
+  controllers: [AppController],
 })
 export class AppModule {}
