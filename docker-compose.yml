@@ -1,6 +1,11 @@
-version: '3'
-
 services:
+  app:
+    build: .
+    depends_on:
+      test-db:
+        condition: service_healthy
+    entrypoint: [ "./wait-for-it.sh", "test-db", "npm", "run", "test:e2e" ]
+
   db:
     image: postgres
     restart: always
@@ -8,3 +13,18 @@ services:
       - '5432:5432'
     environment:
       POSTGRES-PASSWORD: postgres
+
+  test-db:
+    image: postgres
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_DB: test-db
+      POSTGRES_USER: postgres
+      POSTGRES-PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "user" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
